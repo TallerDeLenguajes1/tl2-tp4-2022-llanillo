@@ -1,0 +1,25 @@
+@model List<Cadete>
+
+<table>
+<thead>
+    <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Dirección</th>
+        <th>Teléfono</th>
+    </tr>
+</thead>
+        
+<tbody>
+@foreach (var cadete in Model)
+{
+    <tr>
+        <td>@cadete.Id</td>
+        <td>@cadete.Nombre</td>
+        <td>@cadete.Direccion</td>
+        <td>@cadete.Telefono</td>
+    </tr>
+}
+
+</tbody>
+</table>

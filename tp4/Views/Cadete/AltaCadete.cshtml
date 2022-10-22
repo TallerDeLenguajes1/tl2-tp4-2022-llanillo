@@ -1,0 +1,8 @@
+@model Cadete
+
+<h2>Registro exitoso</h2>
+<p>Se creo exitosamente el cadete @Model.Nombre</p>
+
+<form asp-controller="Cadete" asp-action="ListadoCadetes" method="get">
+    <input type="submit" value="Volver">
+</form>

@@ -1,42 +1,45 @@
 global using tp4.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace tp4.Controllers{
+namespace tp4.Controllers;
 
-public class CadeteController : Controller{
-
+public class CadeteController : Controller
+{
     private readonly ILogger<CadeteController> _logger;
-    
-    private readonly List<Cadete> _cadetes = new ();
-    private static int _id = 0;
+
+    private static readonly List<Cadete> Cadetes = new();
+    private static int _id;
 
 
-    public CadeteController(ILogger<CadeteController> logger){
+    public CadeteController(ILogger<CadeteController> logger)
+    {
         _logger = logger;
     }
 
+    public IActionResult Index()
+    {
+        return View(Cadetes);
+    }
+
     [HttpGet]
-    public IActionResult RegistroCadete(){
+    public IActionResult AltaCadete()
+    {
         return View();
     }
-    
+
     [HttpPost]
-    public IActionResult AltaCadete(Cadete cadete){
+    public void AltaCadeteExito(Cadete cadete)
+    {
         cadete.Id = ++_id;
-        Console.WriteLine(cadete.Nombre);
-        _cadetes.Add(cadete);
-        return View("ListadoCadetes", _cadetes);
+        Cadetes.Add(cadete);
+        // return View("Index", _cadetes);
+        Response.Redirect("/Cadete");
     }
 
     [HttpGet]
-    public IActionResult BajaCadete(Cadete cadete){
-        _cadetes.Remove(cadete);
-        return View(cadete);
+    public void BajaCadete(int id)
+    {
+        Cadetes.RemoveAll(x => x.Id == id);
+        Response.Redirect("/Cadete");
     }
-
-    [HttpGet]
-    public IActionResult ListadoCadetes(List<Cadete> cadetes){
-        return View(cadetes);
-    }
-}
 }
